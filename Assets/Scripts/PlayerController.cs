@@ -5,19 +5,27 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // movement variables
-    public float maxSpeed = 6f;
+    public int maxSpeed = 5;
     Rigidbody2D rb2d;
     Animator anim;
 
     // jumping variables
     bool grounded = false;
     float groundRadius = 0.2f;
+    int jumpCount = 0;
     public LayerMask groundLayer;
     public Transform groundCheck;
-    public float jumpHeight;
+    public float jumpHeight = 150f;
 
     // checks if char is facing right
     bool facingRight;
+
+    // for shooting
+    public Transform firePoint;
+    public GameObject snowball;
+    public float fireRate = 0.5f;
+    float nextFire = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,10 +44,18 @@ public class PlayerController : MonoBehaviour
         // if the player is on the ground and the jump button is pressed
         if (grounded && Input.GetAxis("Jump") > 0) {
             // set the grounded parameter to false
+            // hasJumped = 0f;
             grounded = false;
             anim.SetBool("isGrounded", grounded);
+            jumpCount = 0;
+            Debug.Log(Input.GetAxis("Jump"));
             // add a vertical force to the player
             rb2d.AddForce(new Vector2(0, jumpHeight));
+        }
+
+        // Player shooting
+        if (Input.GetAxisRaw("Fire1") > 0) {
+            throwSnowball();
         }
     }
     // Update is called once per frame
@@ -70,5 +86,15 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+    void throwSnowball() {
+        if (Time.time > nextFire) {
+            nextFire = Time.time + fireRate;
+            if (facingRight) {
+                Instantiate(snowball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+            } else {
+                Instantiate(snowball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 10f)));
+            }
+        }
     }
 }
