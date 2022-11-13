@@ -27,23 +27,27 @@ public class SnowballHit : MonoBehaviour
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Hitable")) {
             Debug.Log("Hit enemy");
+            if (other.tag == "Enemy") {
             // get a reference to the enemy health script
-            //EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
-            // call the enemy's damage function
-            //enemyHealth.addDamage(weaponDamage);
+                EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+                // call the enemy's damage function
+                enemyHealth.addDamage(weaponDamage);
+            }
             // destroy the projectile
             projectileController.removeForce();
             Destroy(gameObject);
         }
     }
-    // destroy the projectile if it hits a wall but its going too fase
+    // destroy the projectile if it hits a wall but its going too fast
     void OnTriggerStay2D(Collider2D other) {
         // if the object we hit is an enemy
         if (other.gameObject.layer == LayerMask.NameToLayer("Hitable"))  {
+            if (other.tag == "Enemy") {
             // get a reference to the enemy health script
-            //EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
-            // call the enemy's damage function
-            //enemyHealth.addDamage(weaponDamage);
+                EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+                // call the enemy's damage function
+                enemyHealth.addDamage(weaponDamage);
+            }
             // destroy the projectile
             projectileController.removeForce();
             Destroy(gameObject);
