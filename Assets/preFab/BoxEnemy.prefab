@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5462557938592101879}
   - component: {fileID: 4354408445566073881}
   - component: {fileID: 6414684822068525184}
+  - component: {fileID: 96646378}
   m_Layer: 6
   m_Name: BoxEnemy
   m_TagString: Enemy
@@ -165,6 +166,20 @@ MonoBehaviour:
   enemyDamage: 2
   damageRate: 1
   pushBackForce: 10
+--- !u!114 &96646378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011345065789947855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80c7eb2b2897d2448116037360d71a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  playerDistance: 3
 --- !u!1 &2937670135543278306
 GameObject:
   m_ObjectHideFlags: 0
