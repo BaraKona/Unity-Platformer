@@ -12,9 +12,10 @@ public class PlayerController : MonoBehaviour
     // jumping variables
     bool grounded = false;
     float groundRadius = 0.2f;
-    int jumpCount = 0;
     public LayerMask groundLayer;
     public Transform groundCheck;
+    public int maxJumps;
+    int jumpCount = 0;
     public float jumpHeight = 150f;
 
     // checks if char is facing right
@@ -50,7 +51,6 @@ public class PlayerController : MonoBehaviour
             grounded = false;
             anim.SetBool("isGrounded", grounded);
             jumpCount = 0;
-            Debug.Log(Input.GetAxis("Jump"));
             // add a vertical force to the player
             rb2d.AddForce(new Vector2(0, jumpHeight));
         }
@@ -90,7 +90,6 @@ public class PlayerController : MonoBehaviour
         transform.localScale = theScale;
     }
     void throwSnowball() {
-    
         if (sandball && !grassball) {
         // generate random number between 1 and 10
         int rand = Random.Range(1, 10);
