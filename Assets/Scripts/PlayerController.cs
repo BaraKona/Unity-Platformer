@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     // for shooting
     public Transform firePoint;
     public GameObject snowball;
+    public GameObject sandball;
+    public GameObject grassball;
     public float fireRate = 0.5f;
     float nextFire = 0f;
 
@@ -88,12 +90,72 @@ public class PlayerController : MonoBehaviour
         transform.localScale = theScale;
     }
     void throwSnowball() {
-        if (Time.time > nextFire) {
-            nextFire = Time.time + fireRate;
-            if (facingRight) {
-                Instantiate(snowball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+    
+        if (sandball && !grassball) {
+        // generate random number between 1 and 10
+        int rand = Random.Range(1, 10);
+        // if number is <=5 throw snowball
+            if (rand <= 5) {
+                if (Time.time > nextFire) {
+                    nextFire = Time.time + fireRate;
+                    if (facingRight) {
+                        Instantiate(sandball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+                    } else {
+                        Instantiate(sandball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 10f)));
+                    }
+                }
             } else {
-                Instantiate(snowball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 10f)));
+                if (Time.time > nextFire) {
+                    nextFire = Time.time + fireRate;
+                    if (facingRight) {
+                        Instantiate(snowball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+                    } else {
+                        Instantiate(snowball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 10f)));
+                    }
+                }
+            }
+        }
+        if (grassball && sandball) {
+        // generate random number between 1 and 10
+        int rand = Random.Range(1, 10);
+        // if number is <=5 throw snowball
+            if (rand <= 2) {
+                if (Time.time > nextFire) {
+                    nextFire = Time.time + fireRate;
+                    if (facingRight) {
+                        Instantiate(sandball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+                    } else {
+                        Instantiate(sandball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 10f)));
+                    }
+                }
+            } 
+            if (rand >2 && rand <= 5) {
+                if (Time.time > nextFire) {
+                    nextFire = Time.time + fireRate;
+                    if (facingRight) {
+                        Instantiate(snowball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+                    } else {
+                        Instantiate(snowball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 10f)));
+                    }
+                }
+            } else {
+                if (Time.time > nextFire) {
+                    nextFire = Time.time + fireRate;
+                    if (facingRight) {
+                        Instantiate(grassball , firePoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+                    } else {
+                        Instantiate(grassball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 10f)));
+                    }
+                }
+            }
+        } else {
+            if (Time.time > nextFire) {
+                nextFire = Time.time + fireRate;
+                if (facingRight) {
+                    Instantiate(snowball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+                } else {
+                    Instantiate(snowball, firePoint.position, Quaternion.Euler(new Vector3(0, 0, 10f)));
+                }
             }
         }
     }

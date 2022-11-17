@@ -8,7 +8,6 @@ public class EnemyMovement : MonoBehaviour
     Transform target;
     public float playerDistance;
     bool seen = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -20,10 +19,11 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+         // play the enemyReceiveDamage animation
         Move();
     }
     void Move () {
-        Debug.Log("seen" + seen);
         // if player is close
         if (Vector2.Distance(transform.position, target.position) < playerDistance) {
             seen = true;
