@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public Transform groundCheck;
     public int maxJumps;
-    int jumpCount = 0;
-    public float jumpHeight = 150f;
+    public int jumpCount = 2;
+    public float jumpHeight = 500f;
 
     // checks if char is facing right
     bool facingRight;
@@ -45,14 +45,25 @@ public class PlayerController : MonoBehaviour
         // sets the vertical speed parameter in the animator to the vertical speed of the player
         anim.SetFloat("verticalSpeed", rb2d.velocity.y);
         // if the player is on the ground and the jump button is pressed
-        if (grounded && Input.GetAxis("Jump") > 0) {
-            // set the grounded parameter to false
-            // hasJumped = 0f;
-            grounded = false;
-            anim.SetBool("isGrounded", grounded);
-            jumpCount = 0;
-            // add a vertical force to the player
-            rb2d.AddForce(new Vector2(0, jumpHeight));
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))) {
+            if (jumpCount > 0) {
+                rb2d.AddForce(new Vector2 (0, jumpHeight), ForceMode2D.Impulse);
+                grounded = false;
+                jumpCount = jumpCount - 1;
+            }
+            if (jumpCount == 0)
+            {
+                return;
+            }
+            // // set the grounded parameter to false
+            // // hasJumped = 0f;
+            // // grounded = false;
+            // // anim.SetBool("isGrounded", grounded);
+            // // jumpCount = 0;
+            // // // add a vertical force to the player
+            // // rb2d.AddForce(new Vector2(0, jumpHeight));
+            // //run jump function
+            // // jump();
         }
 
         // Player shooting
@@ -65,6 +76,9 @@ public class PlayerController : MonoBehaviour
     {
         // draws circle and checks if the player is on the ground. If it is, grounded is set to true and the player can jump
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
+        if (grounded) {
+            jumpCount = maxJumps;
+        }
         anim.SetBool("isGrounded", grounded);
         anim.SetFloat("verticalSpeed", rb2d.velocity.y);
 
@@ -88,6 +102,12 @@ public class PlayerController : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+    void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "Ground") {
+            jumpCount = maxJumps;
+            grounded = true;
+        }
     }
     void throwSnowball() {
         if (sandball && !grassball) {
