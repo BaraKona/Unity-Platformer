@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public Transform groundCheck;
     public int maxJumps;
-    public int jumpCount = 2;
+    public int jumpCount;
     public float jumpHeight = 500f;
 
     // checks if char is facing right
@@ -49,21 +49,21 @@ public class PlayerController : MonoBehaviour
             if (jumpCount > 0) {
                 rb2d.AddForce(new Vector2 (0, jumpHeight), ForceMode2D.Impulse);
                 grounded = false;
-                jumpCount = jumpCount - 1;
+                jumpCount -= 1;
+            } else {
+                // do nothing
+
+                // return;
             }
-            if (jumpCount == 0)
-            {
-                return;
-            }
-            // // set the grounded parameter to false
-            // // hasJumped = 0f;
-            // // grounded = false;
-            // // anim.SetBool("isGrounded", grounded);
-            // // jumpCount = 0;
-            // // // add a vertical force to the player
-            // // rb2d.AddForce(new Vector2(0, jumpHeight));
-            // //run jump function
-            // // jump();
+            // set the grounded parameter to false
+            // hasJumped = 0f;
+            // grounded = false;
+            // anim.SetBool("isGrounded", grounded);
+            // jumpCount = 0;
+            // add a vertical force to the player
+            // rb2d.AddForce(new Vector2(0, jumpHeight));
+            // run jump function
+            // jump();
         }
 
         // Player shooting
