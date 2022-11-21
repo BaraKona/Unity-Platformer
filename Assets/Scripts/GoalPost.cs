@@ -24,6 +24,7 @@ public class GoalPost : MonoBehaviour
         if(other.gameObject.tag == "Player"){
             Debug.Log("Player collided");
             SceneManager.LoadScene(levelToLoad);
+            
         }
     }
     // Update is called once per frame
